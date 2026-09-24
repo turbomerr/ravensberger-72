@@ -16,8 +16,8 @@ const gallery = [
   },
   {
     src: '/Screenshot_2026-08-20_at_02.28.43.png',
-    alt: 'Frühstücksangebote und Speisekarte der Ravensberger Backstube',
-    label: 'Unsere Garten',
+    alt: 'Sitzbereich im Garten der Ravensberger Backstube',
+    label: 'Unser Garten',
     className: 'md:col-span-5',
   },
 ];
@@ -26,7 +26,7 @@ export default function Gallery() {
   const { ref, visible } = useReveal();
 
   return (
-    <section id="einblicke" className="relative py-20 md:py-28">
+    <section id="einblicke" className="relative py-14 md:py-28">
       <div
         ref={ref}
         className={`mx-auto max-w-6xl px-5 md:px-8 reveal ${visible ? 'is-visible' : ''}`}

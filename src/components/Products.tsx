@@ -9,7 +9,7 @@ export default function Products() {
   const current = categories.find((c) => c.id === active) ?? categories[0];
 
   return (
-    <section id="menu" className="relative py-20 md:py-28">
+    <section id="menu" className="relative py-14 md:py-28">
       <div
         ref={ref}
         className={`mx-auto max-w-6xl px-5 md:px-8 reveal ${visible ? 'is-visible' : ''}`}
@@ -129,9 +129,9 @@ export default function Products() {
         </div>
 
         {/* feature + grid */}
-        <div className="mt-8 grid gap-5 md:grid-cols-12">
+        <div className="mt-8 grid grid-cols-2 gap-3 md:grid-cols-12 md:gap-5">
           {/* big feature card */}
-          <div className="group relative overflow-hidden rounded-3xl md:col-span-7 md:row-span-2 min-h-[20rem] md:min-h-[28rem]">
+          <div className="group relative col-span-2 overflow-hidden rounded-3xl md:col-span-7 md:row-span-2 min-h-[20rem] md:min-h-[28rem]">
             <img
               src={current.image}
               alt={current.name}
@@ -160,7 +160,7 @@ export default function Products() {
               <button
                 key={c.id}
                 onClick={() => setActive(c.id)}
-                className="group relative overflow-hidden rounded-3xl md:col-span-3 min-h-[12rem] text-left"
+                className="group relative col-span-1 overflow-hidden rounded-2xl md:rounded-3xl md:col-span-3 min-h-[9rem] md:min-h-[12rem] text-left"
               >
                 <img
                   src={c.image}
@@ -168,7 +168,7 @@ export default function Products() {
                   className="absolute inset-0 h-full w-full object-cover transition-transform duration-700 group-hover:scale-110"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-charcoal-900/80 via-charcoal-900/10 to-transparent" />
-                <div className="absolute bottom-0 p-5">
+                <div className="absolute bottom-0 p-4 md:p-5">
                   <h4 className="font-display text-lg font-700 text-cream-100">
                     {c.name}
                   </h4>

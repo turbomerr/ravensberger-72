@@ -1,12 +1,15 @@
 import { MapPin, Navigation, Clock } from 'lucide-react';
-import { business } from '@/data/site';
+import { business, hours } from '@/data/site';
+
+const short = (t: string) => t.slice(0, 2);
+const range = (i: number) => `${short(hours[i].open)}–${short(hours[i].close)}`;
 import { useReveal } from '@/hooks/useReveal';
 
 export default function Location() {
   const { ref, visible } = useReveal();
 
   return (
-    <section id="standort" className="relative py-20 md:py-28">
+    <section id="standort" className="relative py-14 md:py-28">
       <div
         ref={ref}
         className={`mx-auto max-w-6xl px-5 md:px-8 reveal ${visible ? 'is-visible' : ''}`}
@@ -45,7 +48,7 @@ export default function Location() {
                 <div>
                   <p className="font-700 text-charcoal-900">7 Tage geöffnet</p>
                   <p className="text-charcoal-700">
-                    Mo–Fr 05–17 · Sa 06–15 · So 08–15
+                    <span className="whitespace-nowrap">Mo–Fr {range(0)}</span> · <span className="whitespace-nowrap">Sa {range(5)}</span> · <span className="whitespace-nowrap">So {range(6)} Uhr</span>
                   </p>
                 </div>
               </div>

@@ -1,74 +1,114 @@
-import { Sunrise, Instagram, Clock, ShoppingBag, MessageCircle } from 'lucide-react';
-import { business } from '@/data/site';
-import { useReveal } from '@/hooks/useReveal';
+import { Sunrise, MapPin, Clock } from 'lucide-react';
+import { business, hours } from '@/data/site';
 
-const upcoming = [
-  { icon: ShoppingBag, label: 'Online-Menü', note: 'Sortiment & Preise digital' },
-  { icon: Instagram, label: 'Instagram-Feed', note: 'Tägliche Frische zum Ansehen' },
-  { icon: Clock, label: 'Vorbestellung', note: 'Brötchen vorab sichern' },
-  { icon: MessageCircle, label: 'WhatsApp-Kontakt', note: 'Schnell & direkt erreichbar' },
+const navLinks = [
+  { href: '#fruehstarter', label: 'Frühstück' },
+  { href: '#menu', label: 'Speisekarte' },
+  { href: '#zeiten', label: 'Öffnungszeiten' },
+  { href: '#bewertungen', label: 'Bewertungen' },
+  { href: '#einblicke', label: 'Einblicke' },
+  { href: '#standort', label: 'Standort' },
 ];
 
-export default function Footer() {
-  const { ref, visible } = useReveal();
+// Mo–Fr share the same hours; Sa and So are listed separately.
+const openingRows = [
+  { label: 'Montag – Freitag', h: hours[0] },
+  { label: 'Samstag', h: hours[5] },
+  { label: 'Sonntag', h: hours[6] },
+];
 
+const headingClass =
+  'text-xs font-700 uppercase tracking-[0.16em] text-crust-400';
+
+export default function Footer() {
   return (
     <footer className="relative bg-charcoal-900 text-cream-100">
       <div className="pointer-events-none absolute inset-0 grain opacity-[0.06]" />
 
-      {/* upcoming strip */}
-      <div
-        ref={ref}
-        className={`relative border-b border-cream-100/10 px-5 py-14 md:px-8 reveal ${visible ? 'is-visible' : ''}`}
-      >
-        <div className="mx-auto max-w-6xl">
-          <p className="text-sm font-600 uppercase tracking-[0.14em] text-crust-400">
-            Bald verfügbar
-          </p>
-          <h3 className="mt-3 max-w-2xl font-display text-3xl font-800 leading-tight text-cream-100 md:text-4xl">
-            Wir wachsen mit dir – neue Funktionen folgen.
-          </h3>
-          <div className="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
-            {upcoming.map((u) => (
-              <div
-                key={u.label}
-                className="rounded-2xl border border-cream-100/10 bg-cream-100/5 p-5 transition-colors hover:bg-cream-100/10"
-              >
-                <u.icon className="h-6 w-6 text-crust-400" />
-                <p className="mt-3 font-700 text-cream-100">{u.label}</p>
-                <p className="mt-1 text-sm text-cream-200/70">{u.note}</p>
-              </div>
-            ))}
-          </div>
-        </div>
-      </div>
-
-      {/* footer base */}
-      <div className="relative mx-auto max-w-6xl px-5 py-12 md:px-8">
-        <div className="flex flex-col items-start justify-between gap-8 md:flex-row md:items-center">
-          <div className="flex items-center gap-3">
-            <span className="flex h-10 w-10 items-center justify-center rounded-lg bg-crust-500 text-cream-100">
-              <Sunrise className="h-5 w-5" strokeWidth={2.2} />
-            </span>
-            <div className="leading-tight">
-              <p className="font-display text-lg font-800">{business.name}</p>
-              <p className="text-sm text-cream-200/70">
-                {business.street} · {business.zip} {business.city}
-              </p>
+      <div className="relative mx-auto max-w-6xl px-5 py-14 md:px-8 md:py-16">
+        <div className="grid gap-12 md:grid-cols-2 lg:grid-cols-4 lg:gap-10">
+          {/* Unternehmen */}
+          <div>
+            <div className="flex items-center gap-3">
+              <span className="flex h-10 w-10 items-center justify-center rounded-lg bg-crust-500 text-cream-100">
+                <Sunrise className="h-5 w-5" strokeWidth={2.2} />
+              </span>
+              <p className="font-display text-lg font-800 leading-tight">{business.name}</p>
             </div>
+            <p className="mt-5 max-w-xs text-sm leading-relaxed text-cream-200/70">
+              Bäckerei und Frühstück in Wuppertal. Frische Backwaren, täglich
+              für Sie zubereitet.
+            </p>
           </div>
 
-          <nav className="flex flex-wrap gap-x-6 gap-y-2 text-sm font-500 text-cream-200/80">
-            <a href="#fruehstarter" className="hover:text-crust-400 transition-colors">Ab 05:00</a>
-            <a href="#menu" className="hover:text-crust-400 transition-colors">Menu</a>
-            <a href="#zeiten" className="hover:text-crust-400 transition-colors">Öffnungszeiten</a>
-            <a href="#standort" className="hover:text-crust-400 transition-colors">Standort</a>
+          {/* Navigation */}
+          <nav aria-label="Footer-Navigation">
+            <h4 className={headingClass}>Navigation</h4>
+            <ul className="mt-5 space-y-3 text-sm text-cream-200/80">
+              {navLinks.map((l) => (
+                <li key={l.href}>
+                  <a href={l.href} className="transition-colors hover:text-crust-400">
+                    {l.label}
+                  </a>
+                </li>
+              ))}
+            </ul>
           </nav>
+
+          {/* Öffnungszeiten */}
+          <div>
+            <h4 className={headingClass}>Öffnungszeiten</h4>
+            <ul className="mt-5 space-y-3 text-sm text-cream-200/80">
+              {openingRows.map((r) => (
+                <li key={r.label} className="flex items-start gap-3">
+                  <Clock className="mt-0.5 h-4 w-4 shrink-0 text-cream-200/40" />
+                  <span>
+                    <span className="block text-cream-100">{r.label}</span>
+                    <span className="text-cream-200/70">
+                      {r.h.open} – {r.h.close} Uhr
+                    </span>
+                  </span>
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          {/* Kontakt & Anfahrt */}
+          <div>
+            <h4 className={headingClass}>Kontakt &amp; Anfahrt</h4>
+            <address className="mt-5 flex items-start gap-3 text-sm not-italic leading-relaxed text-cream-200/80">
+              <MapPin className="mt-0.5 h-4 w-4 shrink-0 text-cream-200/40" />
+              <span>
+                <span className="block text-cream-100">{business.name}</span>
+                {business.street}
+                <br />
+                {business.zip} {business.city}
+              </span>
+            </address>
+            {business.phone && (
+              <p className="mt-3 text-sm text-cream-200/80">
+                Tel.{' '}
+                <a
+                  href={`tel:${business.phone.replace(/\s/g, '')}`}
+                  className="transition-colors hover:text-crust-400"
+                >
+                  {business.phone}
+                </a>
+              </p>
+            )}
+            <a
+              href={business.mapsUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="mt-5 inline-block border-b border-crust-400/60 pb-0.5 text-sm font-600 text-crust-400 transition-colors hover:border-crust-400"
+            >
+              Route berechnen
+            </a>
+          </div>
         </div>
 
-        <div className="mt-10 flex flex-col items-start justify-between gap-3 border-t border-cream-100/10 pt-6 text-sm text-cream-200/60 md:flex-row md:items-center">
+        <div className="mt-14 border-t border-cream-100/10 pt-6 text-sm text-cream-200/60">
           <p>© {new Date().getFullYear()} {business.name}. Alle Rechte vorbehalten.</p>
-          <p className="font-display italic text-crust-400">„{business.tagline}"</p>
         </div>
       </div>
     </footer>

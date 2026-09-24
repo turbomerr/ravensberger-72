@@ -78,9 +78,9 @@ export default function Hero() {
               <Sunrise className="h-5 w-5" />
             </span>
             <div className="leading-tight">
-              <p className="font-display text-xl font-800 text-charcoal-900">05:00</p>
+              <p className="font-display text-xl font-800 text-charcoal-900">07:00</p>
               <p className="text-[11px] font-500 uppercase tracking-wide text-charcoal-700">
-                frühstürück
+                frühstück ab
               </p>
             </div>
           </div>

@@ -13,7 +13,7 @@ export default function OpeningHours() {
   const today = todayIndex();
 
   return (
-    <section id="zeiten" className="relative py-20 md:py-28 bg-cream-50">
+    <section id="zeiten" className="relative py-14 md:py-28 bg-cream-50">
       <div
         ref={ref}
         className={`mx-auto max-w-6xl px-5 md:px-8 reveal ${visible ? 'is-visible' : ''}`}
@@ -37,10 +37,10 @@ export default function OpeningHours() {
               </span>
               <div className="leading-tight">
                 <p className="font-display text-2xl font-800 text-charcoal-900">
-                  Mo–Fr · 05:00 Uhr
+                  Mo–Fr · 07:00 Uhr
                 </p>
                 <p className="text-sm text-charcoal-700">
-                  Früheste Backstube der Umgebung
+                  Frische Backwaren zum Start in den Tag
                 </p>
               </div>
             </div>

@@ -33,3 +33,27 @@
   opacity: 1;
   transform: translateY(0);
 }
+
+/* reviews marquee (infinite loop) */
+@keyframes marquee-scroll {
+  from { transform: translateX(0); }
+  to { transform: translateX(-50%); }
+}
+.marquee-track {
+  display: flex;
+  width: max-content;
+  animation: marquee-scroll 60s linear infinite;
+  will-change: transform;
+}
+.marquee:hover .marquee-track,
+.marquee.is-paused .marquee-track {
+  animation-play-state: paused;
+}
+.marquee-mask {
+  -webkit-mask-image: linear-gradient(to right, transparent, #000 6%, #000 94%, transparent);
+  mask-image: linear-gradient(to right, transparent, #000 6%, #000 94%, transparent);
+}
+@media (prefers-reduced-motion: reduce) {
+  .marquee-track { animation: none; }
+  .marquee { overflow-x: auto; }
+}

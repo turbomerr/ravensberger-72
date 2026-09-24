@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import { Menu, X, Sunrise } from 'lucide-react';
 
 const links = [
-  { href: '#fruehstarter', label: 'Ab 05:00' },
+  { href: '#fruehstarter', label: 'Ab 07:00' },
   { href: '#menu', label: 'Menu' },
   { href: '#zeiten', label: 'Öffnungszeiten' },
   { href: '#bewertungen', label: 'Bewertungen' },
@@ -24,13 +24,13 @@ export default function Navbar() {
   return (
     <header
       className={`fixed top-0 z-50 w-full transition-all duration-500 ${
-        scrolled
-          ? 'bg-cream-100/90 backdrop-blur-md shadow-[0_1px_0_0_rgba(28,26,23,0.08)]'
+        scrolled || open
+          ? 'bg-cream-100/95 backdrop-blur-md shadow-[0_1px_0_0_rgba(28,26,23,0.08)]'
           : 'bg-transparent'
       }`}
     >
       <nav className="mx-auto flex max-w-6xl items-center justify-between px-5 py-4 md:px-8">
-        <a href="#top" className="flex items-center gap-2.5 group">
+        <a href="#top" className="flex shrink-0 items-center gap-2.5 group">
           <span className="flex h-9 w-9 items-center justify-center rounded-lg bg-charcoal-900 text-crust-400 transition-transform group-hover:scale-105">
             <Sunrise className="h-5 w-5" strokeWidth={2.2} />
           </span>
@@ -42,12 +42,12 @@ export default function Navbar() {
           </span>
         </a>
 
-        <ul className="hidden md:flex items-center gap-8">
+        <ul className="hidden lg:flex items-center gap-6 xl:gap-8">
           {links.map((l) => (
             <li key={l.href}>
               <a
                 href={l.href}
-                className="relative text-sm font-500 text-charcoal-700 transition-colors hover:text-crust-600 after:absolute after:-bottom-1.5 after:left-0 after:h-0.5 after:w-0 after:bg-crust-500 after:transition-all hover:after:w-full"
+                className="relative whitespace-nowrap text-sm font-500 text-charcoal-700 transition-colors hover:text-crust-600 after:absolute after:-bottom-1.5 after:left-0 after:h-0.5 after:w-0 after:bg-crust-500 after:transition-all hover:after:w-full"
               >
                 {l.label}
               </a>
@@ -57,15 +57,17 @@ export default function Navbar() {
 
         <a
           href="#standort"
-          className="hidden md:inline-flex items-center rounded-full bg-charcoal-900 px-5 py-2.5 text-sm font-600 text-cream-100 transition-all hover:bg-crust-500 hover:shadow-lg hover:shadow-crust-500/25"
+          className="hidden lg:inline-flex items-center whitespace-nowrap rounded-full bg-charcoal-900 px-5 py-2.5 text-sm font-600 text-cream-100 transition-all hover:bg-crust-500 hover:shadow-lg hover:shadow-crust-500/25"
         >
           Route planen
         </a>
 
         <button
-          className="md:hidden flex h-10 w-10 items-center justify-center rounded-lg text-charcoal-900"
+          className="lg:hidden flex h-11 w-11 items-center justify-center rounded-lg text-charcoal-900"
           onClick={() => setOpen((v) => !v)}
           aria-label="Menü"
+          aria-expanded={open}
+          aria-controls="mobile-menu"
         >
           {open ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
         </button>
@@ -73,8 +75,9 @@ export default function Navbar() {
 
       {/* mobile menu */}
       <div
-        className={`md:hidden overflow-hidden bg-cream-100 transition-[max-height] duration-400 ${
-          open ? 'max-h-96 border-t border-charcoal-900/10' : 'max-h-0'
+        id="mobile-menu"
+        className={`lg:hidden overflow-y-auto bg-cream-100 transition-[max-height] duration-300 ${
+          open ? 'max-h-[calc(100dvh-4.5rem)] border-t border-charcoal-900/10' : 'max-h-0'
         }`}
       >
         <ul className="flex flex-col px-5 py-3">

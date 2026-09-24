@@ -15,12 +15,12 @@ export const business = {
 };
 
 export const hours = [
-  { day: 'Montag', open: '05:00', close: '17:00', today: false },
-  { day: 'Dienstag', open: '05:00', close: '17:00', today: false },
-  { day: 'Mittwoch', open: '05:00', close: '17:00', today: false },
-  { day: 'Donnerstag', open: '05:00', close: '17:00', today: false },
-  { day: 'Freitag', open: '05:00', close: '17:00', today: false },
-  { day: 'Samstag', open: '06:00', close: '15:00', today: false },
+  { day: 'Montag', open: '07:00', close: '16:00', today: false },
+  { day: 'Dienstag', open: '07:00', close: '16:00', today: false },
+  { day: 'Mittwoch', open: '07:00', close: '16:00', today: false },
+  { day: 'Donnerstag', open: '07:00', close: '16:00', today: false },
+  { day: 'Freitag', open: '07:00', close: '16:00', today: false },
+  { day: 'Samstag', open: '08:00', close: '14:00', today: false },
   { day: 'Sonntag', open: '08:00', close: '15:00', today: false },
 ];
 

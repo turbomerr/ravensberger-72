@@ -1,159 +1,154 @@
-import { useEffect, useState } from 'react';
-import { ChevronLeft, ChevronRight, Quote, Star } from 'lucide-react';
+import { ArrowUpRight, Star } from 'lucide-react';
+import { business } from '@/data/site';
 import { useReveal } from '@/hooks/useReveal';
 
 const reviews = [
   {
-    name: 'Julia M.',
-    initials: 'JM',
-    date: 'vor 2 Wochen',
-    text: 'Super leckeres Frühstück und sehr freundlicher Service. Die Brötchen sind frisch und der Kaffee richtig gut. Wir kommen gerne wieder!',
+    name: 'Sarah Kirsch',
+    initials: 'SK',
+    rating: 5,
+    text: 'Gemütliche kleine Backstube im Familienbetrieb mit unglaublich freundlichen Menschen. Sie interessieren sich sehr für die Meinung ihrer Kunden und sorgen für eine einladende Atmosphäre. Wir wollten spontan Brötchen zum Frühstück holen und sind auf einen sehr leckeren türkischen Tee eingeladen worden, kurzerhand haben wir dazu noch ein Stück Kuchen gegessen der auch ausgezeichnet war. Generell hat bis jetzt alles ausgezeichnet geschmeckt, die Preise sind angemessen, teilweise sogar überraschend preiswert. Das Geschäft ist sauber und ordentlich. Definitiv einen Besuch wert und ich hoffe diese tolle Bäckerei bleibt erhalten! Vielen Dank',
   },
   {
-    name: 'Daniel K.',
-    initials: 'DK',
-    date: 'vor 1 Monat',
-    text: 'Endlich eine Backstube, die so früh aufhat. Perfekt für den Weg zur Arbeit – und die Auswahl sieht einfach fantastisch aus.',
+    name: 'Cyde',
+    initials: 'C',
+    rating: 4,
+    text: 'Am Sonntagmorgen perfekt für ein spätes Frühstück. Wir haben das kleine Frühstück zweimal gegessen und waren danach sehr zufrieden. Der Inhaber war sehr gastfreundlich und hat jedem von uns ein Gebäck und einen Tee spendiert! Außerdem gibt es einen ständigen Studentenrabatt von 20 %. Das hat hier wirklich gefehlt; wir kommen auf jeden Fall wieder!',
   },
   {
-    name: 'Sabrina W.',
-    initials: 'SW',
-    date: 'vor 1 Monat',
-    text: 'Sehr schönes Café und eine tolle Atmosphäre. Das Frühstück war liebevoll angerichtet und alles hat frisch geschmeckt.',
+    name: 'Dilara Doğan',
+    initials: 'DD',
+    rating: 5,
+    text: 'Wir kommen oft hierher. Sehr leckeres Restaurant, das Personal ist sehr freundlich, das Essen kommt schnell und heiß, die Tische und die Umgebung sind sehr sauber. Wir waren als Familie sehr zufrieden. Wer hierher kommen möchte, sollte nicht zögern – einfach großartig!',
   },
   {
-    name: 'Michael R.',
-    initials: 'MR',
-    date: 'vor 2 Monaten',
-    text: 'Tolle Auswahl, faire Preise und ein nettes Team. Besonders die mediterrane Morgenfreude ist mein neuer Favorit.',
+    name: 'Katja (Fratztinka)',
+    initials: 'KF',
+    rating: 5,
+    text: 'Fantastische und unglaublich leckere Kekse und Gebäck. Tolle Öffnungszeiten! Das Personal ist freundlich und war bisher unglaublich gastfreundlich. Vielen Dank! Definitiv eine tolle Bereicherung für die Nachbarschaft.',
+  },
+  {
+    name: 'Anonyme',
+    initials: 'A',
+    rating: 5,
+    text: 'Ich war sehr zufrieden mit meinem Besuch in der Ravensburger Backstube. Die Auswahl an frischen Backwaren ist groß, alles war sehr lecker und von guter Qualität. Das Personal war freundlich, aufmerksam und hat mich schnell bedient. Die Atmosphäre ist angenehm und sauber, sodass man sich wohlfühlt. Ich komme gerne wieder und kann die Ravensburger Backstube uneingeschränkt weiterempfehlen!',
+  },
+  {
+    name: 'jens grabowski',
+    initials: 'JG',
+    rating: 5,
+    text: 'Eine wunderbare Bäckerei mit fantastischem Gebäck und Kuchen. Die Mitarbeiter sind sehr sympathisch! Man kann sogar draußen sitzen und die Atmosphäre genießen. Die Donuts sind sehr lecker. Wir freuen uns sehr, dass diese Bäckerei jetzt in unserer Nähe ist. Auch für unsere Feriengäste ist sie bestens geeignet. Man merkt, dass hier alles mit großer Liebe gemacht wird.',
+  },
+  {
+    name: 'Sara Awwad',
+    initials: 'SA',
+    rating: 5,
+    text: 'Ich war zum Frühstück dort. Der Laden war sehr sauber, die Mitarbeiter waren sehr aufmerksam und das Essen war hervorragend. Alles war perfekt. Sehr zu empfehlen.',
+  },
+  {
+    name: 'Sean Ok',
+    initials: 'SO',
+    rating: 5,
+    text: 'Äußerst gastfreundlich und hervorragender Service. Wenn mich mein Weg noch einmal in diese Stadt führt, komme ich definitiv wieder vorbei! Sehr zu empfehlen.',
+  },
+  {
+    name: 'Stefanie X',
+    initials: 'SX',
+    rating: 5,
+    text: 'Ein sehr herzliches Paar betreibt dieses süße Café. Das Frühstück wird frisch nach Wunsch der Kunden zubereitet.',
   },
 ];
 
-function Stars() {
+function Stars({ rating = 5 }: { rating?: number }) {
   return (
-    <div className="flex gap-1" aria-label="5 von 5 Sterne">
+    <div className="flex gap-0.5" aria-label={`${rating} von 5 Sterne`}>
       {Array.from({ length: 5 }).map((_, index) => (
-        <Star key={index} className="h-4 w-4 fill-crust-400 text-crust-400" />
+        <Star
+          key={index}
+          className={`h-4 w-4 ${
+            index < rating ? 'fill-crust-500 text-crust-500' : 'fill-charcoal-900/10 text-charcoal-900/10'
+          }`}
+        />
       ))}
     </div>
   );
 }
 
+function ReviewCard({ review }: { review: (typeof reviews)[number] }) {
+  return (
+    <article className="mr-5 flex w-[22rem] shrink-0 flex-col justify-between gap-6 rounded-3xl border border-charcoal-900/8 bg-cream-100 p-7 md:w-[26rem]">
+      <div>
+        <Stars rating={review.rating} />
+        <p className="mt-5 line-clamp-[9] text-[15px] leading-relaxed text-charcoal-700">„{review.text}“</p>
+      </div>
+      <div className="flex items-center gap-3">
+        <span className="flex h-9 w-9 items-center justify-center rounded-full bg-cream-300/70 text-xs font-600 text-charcoal-700">
+          {review.initials}
+        </span>
+        <div className="leading-tight">
+          <p className="text-sm font-700 text-charcoal-900">{review.name}</p>
+          <p className="text-xs text-charcoal-700/70">Google-Bewertung</p>
+        </div>
+      </div>
+    </article>
+  );
+}
+
 export default function Reviews() {
-  const [active, setActive] = useState(0);
-  const [paused, setPaused] = useState(false);
   const { ref, visible } = useReveal();
 
-  useEffect(() => {
-    if (paused) return;
-    const interval = window.setInterval(() => {
-      setActive((current) => (current + 1) % reviews.length);
-    }, 5000);
-    return () => window.clearInterval(interval);
-  }, [paused]);
-
-  const goTo = (index: number) => setActive((index + reviews.length) % reviews.length);
-  const currentReview = reviews[active];
+  // The track holds the list twice and is translated by -50% for a seamless loop.
+  const half = reviews;
 
   return (
-    <section id="bewertungen" className="relative bg-cream-50 py-20 md:py-28">
-      <div
-        ref={ref}
-        className={`mx-auto max-w-6xl px-5 md:px-8 reveal ${visible ? 'is-visible' : ''}`}
-      >
-        <div className="flex flex-col items-start justify-between gap-8 md:flex-row md:items-end">
+    <section id="bewertungen" className="relative overflow-hidden bg-cream-50 py-14 md:py-28">
+      <div ref={ref} className={`reveal ${visible ? 'is-visible' : ''}`}>
+        <div className="mx-auto flex max-w-6xl flex-col items-start justify-between gap-8 px-5 md:flex-row md:items-end md:px-8">
           <div>
             <p className="text-sm font-600 uppercase tracking-[0.14em] text-crust-600">
-              Google Bewertungen
+              Kundenstimmen
             </p>
             <h2 className="mt-3 max-w-xl font-display text-4xl font-800 leading-tight tracking-tight text-charcoal-900 md:text-5xl">
               Was unsere Gäste sagen.
             </h2>
           </div>
 
-          <div className="flex items-center gap-4 rounded-2xl border border-charcoal-900/10 bg-cream-100 px-5 py-4">
-            <div>
-              <p className="font-display text-4xl font-800 leading-none text-charcoal-900">4,9</p>
-              <p className="mt-1 text-xs font-600 uppercase tracking-wide text-charcoal-700">Bewertung</p>
-            </div>
-            <div className="border-l border-charcoal-900/10 pl-4">
+          <div>
+            <div className="flex items-center gap-3">
+              <span className="font-display text-4xl font-800 leading-none text-charcoal-900">
+                {business.rating}
+              </span>
               <Stars />
-              <p className="mt-1 text-xs text-charcoal-700">auf Google</p>
+            </div>
+            <p className="mt-2 text-sm text-charcoal-700/80">Bewertungen auf Google</p>
+            <div className="mt-4 flex items-center gap-3">
+              <a
+                href={business.mapsPlace}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-1 border-b border-charcoal-900/30 pb-1 text-sm font-600 text-charcoal-900 transition-colors hover:border-crust-500 hover:text-crust-600"
+              >
+                Alle Bewertungen
+                <ArrowUpRight className="h-4 w-4" />
+              </a>
             </div>
           </div>
         </div>
 
         <div
-          className="relative mt-10 overflow-hidden rounded-[2rem] bg-charcoal-900 p-6 md:p-10"
-          onMouseEnter={() => setPaused(true)}
-          onMouseLeave={() => setPaused(false)}
-          onFocus={() => setPaused(true)}
-          onBlur={() => setPaused(false)}
+          className="marquee marquee-mask mt-12 overflow-hidden"
+          aria-label="Google Bewertungen"
         >
-          <div className="pointer-events-none absolute -right-20 -top-28 h-72 w-72 rounded-full bg-crust-500/20 blur-3xl" />
-          <div className="pointer-events-none absolute inset-0 grain opacity-[0.06]" />
-
-          <div className="relative grid items-center gap-8 md:grid-cols-[1fr_auto] md:gap-12">
-            <div key={active} className="animate-fade-in">
-              <Quote className="h-10 w-10 text-crust-400" fill="currentColor" strokeWidth={1} />
-              <blockquote className="mt-5 max-w-3xl font-display text-2xl font-600 leading-snug text-cream-100 md:text-4xl">
-                „{currentReview.text}“
-              </blockquote>
-              <div className="mt-8 flex items-center gap-3">
-                <span className="flex h-11 w-11 items-center justify-center rounded-full bg-crust-500 font-display font-800 text-cream-100">
-                  {currentReview.initials}
-                </span>
-                <div>
-                  <p className="font-700 text-cream-100">{currentReview.name}</p>
-                  <p className="text-sm text-cream-200/60">{currentReview.date} · Google</p>
-                </div>
-                <span className="ml-2"><Stars /></span>
+          <div className="marquee-track">
+            {[0, 1].map((copy) => (
+              <div key={copy} className="flex" aria-hidden={copy === 1}>
+                {half.map((review, i) => (
+                  <ReviewCard key={`${copy}-${i}`} review={review} />
+                ))}
               </div>
-            </div>
-
-            <div className="flex items-center gap-2 md:flex-col">
-              <button
-                type="button"
-                onClick={() => goTo(active - 1)}
-                aria-label="Vorherige Bewertung"
-                className="flex h-11 w-11 items-center justify-center rounded-full border border-cream-100/15 text-cream-100 transition-colors hover:border-crust-400 hover:bg-crust-500"
-              >
-                <ChevronLeft className="h-5 w-5" />
-              </button>
-              <button
-                type="button"
-                onClick={() => goTo(active + 1)}
-                aria-label="Nächste Bewertung"
-                className="flex h-11 w-11 items-center justify-center rounded-full border border-cream-100/15 text-cream-100 transition-colors hover:border-crust-400 hover:bg-crust-500"
-              >
-                <ChevronRight className="h-5 w-5" />
-              </button>
-            </div>
-          </div>
-
-          <div className="relative mt-8 flex items-center justify-between border-t border-cream-100/10 pt-5">
-            <span className="text-xs text-cream-200/50">
-              {paused ? 'Pausiert' : 'Automatisch wechselnd'}
-            </span>
-            <div className="flex gap-2" aria-label="Bewertung auswählen">
-              {reviews.map((review, index) => (
-                <button
-                  type="button"
-                  key={review.name}
-                  onClick={() => goTo(index)}
-                  aria-label={`${review.name} anzeigen`}
-                  className={`h-2 rounded-full transition-all ${
-                    active === index ? 'w-8 bg-crust-400' : 'w-2 bg-cream-100/30 hover:bg-cream-100/60'
-                  }`}
-                />
-              ))}
-            </div>
+            ))}
           </div>
         </div>
-
-        <p className="mt-4 text-center text-xs text-charcoal-700/60">
-          Beispielhafte Darstellung für die Website – echte Google Bewertungen werden später verbunden.
-        </p>
       </div>
     </section>
   );
